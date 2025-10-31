@@ -1,0 +1,109 @@
+#include <stdio.h>
+
+/*
+    Super Trunfo - Movimentos de Peças de Xadrez
+    Torre, Bispo e Rainha: recursividade
+    Cavalo: loops aninhados, break e continue
+*/
+
+// ---------------- TORRE (Recursivo) -----------------
+// Move a torre para cima N vezes
+void moverTorre(int casas)
+{
+    if (casas == 0) return; // condição de parada
+
+    printf("Cima\n");  // imprime direção
+    moverTorre(casas - 1); // chamada recursiva
+}
+
+// ---------------- BISPO (Recursivo + Loops) -----------------
+void moverBispoRec(int casas)
+{
+    if (casas == 0) return;
+
+    printf("Cima\n");
+    printf("Direita\n");
+
+    moverBispoRec(casas - 1);
+}
+
+void moverBispoLoops(int casas)
+{
+    printf("\n--- Bispo com loops aninhados ---\n");
+    
+    for (int i = 0; i < casas; i++) // movimento vertical (cima)
+    {
+        printf("Cima\n");
+
+        for (int j = 0; j < casas; j++) // movimento horizontal (direita)
+        {
+            printf("Direita\n");
+        }
+    }
+}
+
+// ---------------- RAINHA (Recursivo) -----------------
+// Primeiro pra cima, depois pra direita
+void moverRainha(int casas)
+{
+    if (casas == 0) return;
+
+    printf("Cima\n");
+    printf("Direita\n");
+
+    moverRainha(casas - 1);
+}
+
+// ---------------- CAVALO (Loops Complexos) -----------------
+// Movimento: 2 casas para cima e 1 para direita
+void moverCavalo(int maxMovimentos)
+{
+    printf("\n--- Cavalo com loops complexos ---\n");
+
+    int movimentosFeitos = 0;
+
+    for (int i = 0; i < maxMovimentos * 2; i++) // sobe duas casas
+    {
+        printf("Cima\n");
+
+        for (int j = 0; j < maxMovimentos; j++) // tenta ir para direita
+        {
+            // Ignora iterações desnecessárias
+            if (j != 0) continue;
+
+            printf("Direita\n");
+            movimentosFeitos++;
+
+            if (movimentosFeitos == maxMovimentos)
+                break; // já atingiu o limite
+        }
+
+        if (movimentosFeitos == maxMovimentos)
+            break;
+    }
+}
+
+// ---------------- MAIN -----------------
+int main()
+{
+    int casasTorre = 3;
+    int casasBispo = 2;
+    int casasRainha = 3;
+    int movimentosCavalo = 2;
+
+    printf("\n=== Torre (Recursiva) ===\n");
+    moverTorre(casasTorre);
+
+    printf("\n=== Bispo (Recursiva) ===\n");
+    moverBispoRec(casasBispo);
+
+    moverBispoLoops(casasBispo);
+
+    printf("\n=== Rainha (Recursiva) ===\n");
+    moverRainha(casasRainha);
+
+    moverCavalo(movimentosCavalo);
+
+    printf("\n=== Fim da Execucao ===\n");
+    return 0;
+}
